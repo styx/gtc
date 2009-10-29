@@ -2,6 +2,7 @@ module Core
     (
       do_trans
     , do_trans_each_word
+    , langs
     )
 where
 
@@ -25,3 +26,6 @@ do_trans_each_word :: String -> String -> String -> IO String
 do_trans_each_word sl tl str = undefined
 --  do result <- simpleHTTP (getRequest $ trans_url sl tl word) >>= getResponseBody
 --     return result
+
+langs :: String
+langs = "en ru be"

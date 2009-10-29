@@ -65,8 +65,10 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkComboBox" id="combobox1">
+                      <widget class="GtkComboBox" id="cmb_source_lang">
                         <property name="visible">True</property>
+                        <property name="items" translatable="yes">en
+ru</property>
                       </widget>
                       <packing>
                         <property name="position">1</property>
@@ -84,8 +86,10 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkComboBox" id="combobox2">
+                      <widget class="GtkComboBox" id="cmb_dest_lang">
                         <property name="visible">True</property>
+                        <property name="items" translatable="yes">en
+ru</property>
                       </widget>
                       <packing>
                         <property name="position">3</property>

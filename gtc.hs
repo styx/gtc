@@ -1,4 +1,8 @@
 
+module Main (
+    main
+) where
+
 import Core
 import Data.List
 import System.Exit
