@@ -42,11 +42,8 @@ main = do
     comboBoxSetModelText cmb_dest_lang
     comboBoxSetModelText cmb_source_lang
 
-    mapM_ (comboBoxAppendText cmb_dest_lang  ) (words langs)
-    mapM_ (comboBoxAppendText cmb_source_lang) (words langs)
-
-    comboBoxSetActive cmb_source_lang 0
-    comboBoxSetActive cmb_dest_lang   0
+    mapM_ (comboBoxAppendText cmb_dest_lang  ) langs_descrs
+    mapM_ (comboBoxAppendText cmb_source_lang) langs_descrs
 
     -- Actions
     onClicked       btn_close      (widgetDestroy window)
@@ -58,10 +55,15 @@ main = do
     widgetShowAll window
     mainGUI
 
+--get_lang :: ComboBox -> IO (String)
+get_lang cmb = do
+            index <- comboBoxGetActive cmb
+            return (langs !! index)
+
 -- trans_click ::
 trans_click ent lbl cmb_src cmb_dest = do
     text <- get ent entryText
-    Just src <- comboBoxGetActiveText cmb_src
-    Just dst <- comboBoxGetActiveText cmb_dest
+    src <- get_lang cmb_src
+    dst <- get_lang cmb_dest
     translated_text <- do_trans src dst text
     set lbl [ labelText := (decodeString translated_text) ]
