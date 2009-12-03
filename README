@@ -3,7 +3,7 @@ GTC - Google Translate Console
 This program translates a single word or a sentence through http://translate.google.com.
 
 To use program you need to specify fromLang, toLang and text for translation.
-Lang is 2 sumbols code, i.e. by, en, ru.
+Lang is 2 sumbols code, i.e. en, ru, be.
 
 Usage example:
     1) gtc en ru test
@@ -11,4 +11,4 @@ Usage example:
 
 (You may want crete aliases in your .bashrc)
 
-For current time GTC supports only UTF-8 console. Also returned JSON data is not parsed.
+For current time GTC supports only UTF-8 console.
