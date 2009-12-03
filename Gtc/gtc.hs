@@ -3,7 +3,7 @@ module Main (
     main
 ) where
 
-import Core
+import Core.Main
 import Data.List
 import System.Exit
 import qualified System.Environment.UTF8 as U
@@ -22,5 +22,5 @@ main =
      args <- U.getArgs
      case args of
         from:to:rest -> do_trans from to (intercalate " " rest) >>= putStrLn
-        _        -> usage
-     exitWith $ ExitSuccess
+        _            -> usage
+     exitWith ExitSuccess

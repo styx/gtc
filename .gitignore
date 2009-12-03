@@ -1,2 +1,4 @@
 *.o
 *.hi
+Gtc/gtc
+Gtg/gtg

@@ -14,21 +14,21 @@ import qualified System.IO.UTF8 as U
 
 -- Encoding/Decoding helpers
 bytesToString :: [Word8] -> String
-bytesToString xs = map (chr . fromEnum) xs
+bytesToString = map (chr . fromEnum)
 
 stringToBytes :: String -> [Word8]
-stringToBytes xs = map (toEnum . ord) xs
+stringToBytes = map (toEnum . ord)
 
 encodeString :: String -> String
-encodeString xs = bytesToString (encode xs)
+encodeString = bytesToString . encode
 
 decodeString :: String -> String
-decodeString xs = decode (stringToBytes xs)
+decodeString = decode . stringToBytes
 
 main :: IO()
 main = do
     initGUI
-    Just xml  <- xmlNew "gui.glade"
+    Just xml  <- xmlNew "Glade/main.glade"
 
     -- Casts
     window          <- xmlGetWidget xml castToWindow    "gtg_main"
@@ -42,7 +42,7 @@ main = do
     comboBoxSetModelText cmb_dest_lang
     comboBoxSetModelText cmb_source_lang
 
-    mapM_ (comboBoxAppendText cmb_dest_lang  ) (tail $ langs_descrs)
+    mapM_ (comboBoxAppendText cmb_dest_lang  ) (tail langs_descrs)
     mapM_ (comboBoxAppendText cmb_source_lang) langs_descrs
 
     -- Actions
@@ -58,7 +58,7 @@ main = do
 get_dest_lang :: ComboBox -> IO (String)
 get_dest_lang cmb = do
     index <- comboBoxGetActive cmb
-    return $ (tail langs) !! index
+    return $ tail langs !! index
 
 get_src_lang :: ComboBox -> IO (String)
 get_src_lang cmb = do
@@ -71,4 +71,4 @@ trans_click ent lbl cmb_src cmb_dest = do
     src <- get_src_lang cmb_src
     dst <- get_dest_lang cmb_dest
     translated_text <- do_trans src dst text
-    set lbl [ labelText := (decodeString translated_text) ]
+    set lbl [ labelText := decodeString translated_text ]
