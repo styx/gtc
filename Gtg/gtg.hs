@@ -6,22 +6,14 @@ module Main (
 import Gt.Core
 import Data.Word
 import Data.Char
+import Gt.Langs
 import Graphics.UI.Gtk
 import Graphics.UI.Gtk.Glade
-import Codec.Binary.UTF8.String (encode, decode)
+import Codec.Binary.UTF8.String (decode)
 import Paths_gt_tools(getDataDir)
-import qualified System.IO.UTF8 as U
-
-
--- Encoding/Decoding helpers
-bytesToString :: [Word8] -> String
-bytesToString = map (chr . fromEnum)
 
 stringToBytes :: String -> [Word8]
 stringToBytes = map (toEnum . ord)
-
-encodeString :: String -> String
-encodeString = bytesToString . encode
 
 decodeString :: String -> String
 decodeString = decode . stringToBytes
@@ -67,7 +59,7 @@ get_src_lang cmb = do
     index <- comboBoxGetActive cmb
     return (langs !! index)
 
--- trans_click ::
+trans_click :: (EntryClass o, LabelClass o1) => o -> o1 -> ComboBox -> ComboBox -> IO ()
 trans_click ent lbl cmb_src cmb_dest = do
     text <- get ent entryText
     src <- get_src_lang cmb_src

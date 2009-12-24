@@ -47,3 +47,20 @@ executable              gtc
                         json,
                         url,
                         utf8-string
+
+executable              gtg
+    main-is:            gtg.hs
+    buildable:          True
+    ghc-options:        -Wall
+    include-dirs:       .
+    hs-source-dirs:     ., Gt, Gtg
+    other-modules:      Gt.Core, Gt.Helpers, Gt.Langs, Gt.Net, Gt.Translation
+    build-depends:
+                        base >= 4,
+                        containers,
+                        HTTP,
+                        json,
+                        url,
+                        gtk,
+                        glade,
+                        utf8-string
