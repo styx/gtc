@@ -3,7 +3,7 @@ module Main (
     main
 ) where
 
-import Core.Main
+import Gt.Core
 import Data.List
 import System.Exit
 import qualified System.Environment.UTF8 as U

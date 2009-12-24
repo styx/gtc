@@ -1,11 +1,11 @@
-module Core.Net
+module Gt.Net
     (
       get_resp
     , get_resp_each_word
     )
 where
 
-import Core.Langs
+import Gt.Langs
 import Data.Maybe
 import Network.URL
 import Network.HTTP
@@ -22,4 +22,4 @@ get_resp sl tl str =
      return result
 
 get_resp_each_word :: Lang -> Lang -> String -> IO String
-get_resp_each_word sl tl str = undefined
+get_resp_each_word = undefined

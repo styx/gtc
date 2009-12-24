@@ -3,12 +3,13 @@ module Main (
     main
 ) where
 
-import Core
+import Gt.Core
 import Data.Word
 import Data.Char
 import Graphics.UI.Gtk
 import Graphics.UI.Gtk.Glade
 import Codec.Binary.UTF8.String (encode, decode)
+import Paths_gt_tools(getDataDir)
 import qualified System.IO.UTF8 as U
 
 
@@ -28,7 +29,8 @@ decodeString = decode . stringToBytes
 main :: IO()
 main = do
     initGUI
-    Just xml  <- xmlNew "Glade/main.glade"
+    data_dir  <- getDataDir
+    Just xml  <- xmlNew $ data_dir ++ "/main.glade"
 
     -- Casts
     window          <- xmlGetWidget xml castToWindow    "gtg_main"

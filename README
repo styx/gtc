@@ -5,6 +5,9 @@ This program translates a single word or a sentence through http://translate.goo
 To use program you need to specify fromLang, toLang and text for translation.
 Lang is 2 sumbols code, i.e. en, ru, be.
 
+How to install:
+    1) cabal install
+
 Usage example:
     1) gtc en ru test
     2) gtc en ru This is test

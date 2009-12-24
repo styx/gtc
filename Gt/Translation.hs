@@ -1,10 +1,8 @@
-module Core.Translation
+module Gt.Translation
 where
 
-import Core.Helpers
 import Data.List
-
-import qualified Data.Set as S
+import Gt.Helpers
 
 type Trans    = String
 type Orig     = String
@@ -53,9 +51,6 @@ instance Show Sentences where
 
 instance Show Resp where
     show = ps_resp
-
-shift_lines :: Int -> String -> String
-shift_lines c = unlines . map (replicate (c*4) ' ' ++) . lines
 
 ps_dict :: Dict -> String
 ps_dict d = pos d

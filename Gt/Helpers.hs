@@ -1,15 +1,15 @@
-module Core.Helpers
+module Gt.Helpers
     (
         nub_sort
     ,   from_ok
     ,   jarr_to_list
     ,   jstr_to_str
     ,   jlist_to_slist
+    ,   shift_lines
     )
 where
 
 import Text.JSON
-import Text.JSON.String
 
 import qualified Data.Set as S
 
@@ -24,7 +24,8 @@ shift_lines n = unlines . map (replicate (n*4) ' ' ++) . lines
 
 -- JSON deconstruct helpers
 from_ok :: Result a -> a
-from_ok (Ok x) = x
+from_ok (Ok x)    = x
+from_ok (Error _) = undefined
 
 jarr_to_list :: JSValue -> [JSValue]
 jarr_to_list (JSArray jarr) = jarr
@@ -36,3 +37,4 @@ jstr_to_str _               = ""
 
 jlist_to_slist :: JSValue -> [String]
 jlist_to_slist (JSArray xs) = map (jstr_to_str) xs
+jlist_to_slist _            = undefined

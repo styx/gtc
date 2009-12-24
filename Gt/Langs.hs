@@ -1,4 +1,4 @@
-module Core.Langs
+module Gt.Langs
     (
       langs
     , langs_descrs
