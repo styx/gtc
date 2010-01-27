@@ -4,7 +4,7 @@ cabal-version:          >= 1.8
 build-type:             Simple
 license:                GPL
 license-file:           LICENSE
-copyright:              Mikhail S. Pobolovets 2009
+copyright:              Mikhail S. Pobolovets 2009-2010
 maintainer:             Mikhail S. Pobolovets <styx.mp@gmail.com>
 homepage:               http://github.com/styx/gtc
 package-url:            git://github.com/styx/gtc.git
@@ -21,17 +21,9 @@ data-files:             LICENSE README Gtg/main.glade
 data-dir:               ""
 extra-source-files:     Setup.lhs
 
-library
-    exposed-modules:    Gt.Core, Gt.Helpers, Gt.Langs, Gt.Net, Gt.Translation
-    build-depends:
-                        base >= 4,
-                        containers,
-                        HTTP,
-                        json,
-                        url,
-                        utf8-string
-
-    buildable:          False
+flag gui
+    description:        Use this flag if you wish to build GUI version
+    default:            False
 
 executable              gtc
     main-is:            gtc.hs
@@ -41,7 +33,7 @@ executable              gtc
     hs-source-dirs:     ., Gt, Gtc
     other-modules:      Gt.Core, Gt.Helpers, Gt.Langs, Gt.Net, Gt.Translation
     build-depends:
-                        base >= 4,
+                        base >= 4 && < 5,
                         containers,
                         HTTP,
                         json,
@@ -50,13 +42,15 @@ executable              gtc
 
 executable              gtg
     main-is:            gtg.hs
-    buildable:          True
     ghc-options:        -Wall
     include-dirs:       .
     hs-source-dirs:     ., Gt, Gtg
     other-modules:      Gt.Core, Gt.Helpers, Gt.Langs, Gt.Net, Gt.Translation
-    build-depends:
-                        base >= 4,
+
+    if flag(gui)
+      buildable:        True
+      build-depends:
+                        base >= 4 && < 5,
                         containers,
                         HTTP,
                         json,
@@ -64,3 +58,7 @@ executable              gtg
                         gtk,
                         glade,
                         utf8-string
+    else
+      buildable:        False
+
+
