@@ -10,7 +10,6 @@ import Gt.Langs
 import Gt.Helpers
 import Gt.Translation
 
-import Data.List
 import Text.JSON
 
 do_trans :: Lang -> Lang -> String -> IO String
