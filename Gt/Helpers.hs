@@ -1,21 +1,35 @@
 module Gt.Helpers
     (
-        nub_sort
+        decodeString
     ,   from_ok
     ,   jarr_to_list
     ,   jstr_to_str
     ,   jlist_to_slist
+    ,   nub_sort
     ,   shift_lines
     )
 where
 
+import Data.Char
+import Data.Word
+
 import Text.JSON
 
+import qualified Codec.Binary.UTF8.String as U (decode)
 import qualified Data.Set as S
+
+-- UTF-8 decode helpers
+stringToBytes :: String -> [Word8]
+stringToBytes = map (toEnum . ord)
+
+decodeString :: String -> String
+decodeString = U.decode . stringToBytes
+
 
 -- nub + sort through Set
 nub_sort :: Ord a => [a] -> [a]
 nub_sort = S.toList . S.fromList
+
 
 -- shifts lines for 4 spaces for n times
 shift_lines :: Int -> String -> String

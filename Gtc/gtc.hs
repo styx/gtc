@@ -4,7 +4,7 @@ module Main (
 ) where
 
 import Gt.Core
-import Data.List
+import Data.List (intercalate)
 import System.Exit
 import qualified System.Environment.UTF8 as U
 

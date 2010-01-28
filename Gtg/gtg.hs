@@ -4,19 +4,11 @@ module Main (
 ) where
 
 import Gt.Core
-import Data.Word
-import Data.Char
+import Gt.Helpers (decodeString)
 import Gt.Langs
 import Graphics.UI.Gtk
 import Graphics.UI.Gtk.Glade
-import Codec.Binary.UTF8.String (decode)
 import Paths_gt_tools(getDataDir)
-
-stringToBytes :: String -> [Word8]
-stringToBytes = map (toEnum . ord)
-
-decodeString :: String -> String
-decodeString = decode . stringToBytes
 
 main :: IO()
 main = do
