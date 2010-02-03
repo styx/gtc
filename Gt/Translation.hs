@@ -68,9 +68,9 @@ ps_sentence s = "Translation: "
 
 ps_resp :: Resp -> String
 ps_resp resp = shift_lines 1 $ "Source language: "
-                             ++ (src resp)
-                             ++ "\n\n" ++ (show $ sentences resp)
-                             ++ (shift_lines 0 $ show $ dicts resp)
+                             ++ src resp
+                             ++ "\n\n" ++ show (sentences resp)
+                             ++ shift_lines 0 (show $ dicts resp)
 
 blank_resp :: Resp
 blank_resp = Resp {sentences = Sentences {sent_list = []}, dicts = Dicts {dict_list = []}, src = ""}

@@ -41,12 +41,12 @@ main = do
     widgetShowAll window
     mainGUI
 
-get_dest_lang :: ComboBox -> IO (String)
+get_dest_lang :: ComboBox -> IO String
 get_dest_lang cmb = do
     index <- comboBoxGetActive cmb
     return $ tail langs !! index
 
-get_src_lang :: ComboBox -> IO (String)
+get_src_lang :: ComboBox -> IO String
 get_src_lang cmb = do
     index <- comboBoxGetActive cmb
     return (langs !! index)

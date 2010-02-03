@@ -16,14 +16,14 @@ do_trans :: Lang -> Lang -> String -> IO String
 do_trans sl tl str =
   do
     jresp <- get_resp sl tl str
-    return $ show $ jresp_to_resp $ jresp
+    return $ show $ jresp_to_resp jresp
 
 do_trans_each_word :: IO String
 do_trans_each_word = undefined
 
 jresp_to_resp :: String -> Resp
 jresp_to_resp jobj = foldr fill_resp br obj_list
-    where obj_list = fromJSObject $ from_ok $ (decode jobj :: Result (JSObject JSValue))
+    where obj_list = fromJSObject $ from_ok (decode jobj :: Result (JSObject JSValue))
           br = blank_resp
 
 fill_resp :: (String, JSValue) -> Resp -> Resp
@@ -44,7 +44,7 @@ jsso_to_sentence (JSObject jobj) acc =
     -- in the truth we need to reverse data,
     -- but currently there is only one element,
     -- so just leaving as is
-    (foldr tot (Sentence "" "" "") in_list):acc
+    foldr tot (Sentence "" "" "") in_list:acc
     where in_list = fromJSObject jobj
 jsso_to_sentence _ _ = undefined
 
@@ -67,7 +67,7 @@ jsdo_to_dict (JSObject jobj) acc =
     -- in the truth we need to reverse data,
     -- but currently there is only one element,
     -- so just leaving as is
-    (foldr pt (Dict "" []) in_list):acc
+    foldr pt (Dict "" []) in_list:acc
     where in_list = fromJSObject jobj
 jsdo_to_dict _ _ = undefined
 

@@ -50,5 +50,5 @@ jstr_to_str (JSString jstr) = fromJSString jstr
 jstr_to_str _               = ""
 
 jlist_to_slist :: JSValue -> [String]
-jlist_to_slist (JSArray xs) = map (jstr_to_str) xs
+jlist_to_slist (JSArray xs) = map jstr_to_str xs
 jlist_to_slist _            = undefined

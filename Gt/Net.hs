@@ -21,7 +21,7 @@ trans_url sl tl text =
 get_resp :: Lang -> Lang -> String -> IO String
 get_resp sl tl str =
   do result <- simpleHTTP (getRequest $ trans_url sl tl str) >>= getResponseBody
-     return $ decodeString $ result
+     return $ decodeString result
 
 get_resp_each_word :: Lang -> Lang -> String -> IO String
 get_resp_each_word = undefined
