@@ -13,7 +13,7 @@ usage :: IO ()
 usage =
   do
      mapM_ putStrLn [ "    Usage: 'fromLang' 'toLang' 'text'"
-                    , "    Lang is 2 sumbols code, i.e. by, en, ru.\n"
+                    , "    Lang is 2 sumbols code, i.e. be, en, ru.\n"
                     , "        --help or -h - to see this help."
                     , "        --list or -l - list of available languages.\n"
                     ]
