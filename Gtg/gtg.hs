@@ -14,7 +14,7 @@ main :: IO()
 main = do
     initGUI
     data_dir  <- getDataDir
-    Just xml  <- xmlNew $ data_dir ++ "/main.glade"
+    Just xml  <- xmlNew $ data_dir ++ "/Gtg/main.glade"
 
     -- Casts
     window          <- xmlGetWidget xml castToWindow    "gtg_main"
