@@ -29,11 +29,10 @@ executable              gtc
     main-is:            gtc.hs
     buildable:          True
     ghc-options:        -Wall
-    include-dirs:       .
-    hs-source-dirs:     ., Gt, Gtc
+    hs-source-dirs:     ., Gtc
     other-modules:      Gt.Core, Gt.Helpers, Gt.Langs, Gt.Net, Gt.Translation
     build-depends:
-                        base >= 4 && < 5,
+                        base >= 4.2 && < 5,
                         containers,
                         HTTP,
                         json,
@@ -43,14 +42,13 @@ executable              gtc
 executable              gtg
     main-is:            gtg.hs
     ghc-options:        -Wall
-    include-dirs:       .
-    hs-source-dirs:     ., Gt, Gtg
+    hs-source-dirs:     ., Gtg
     other-modules:      Gt.Core, Gt.Helpers, Gt.Langs, Gt.Net, Gt.Translation
 
     if flag(gui)
       buildable:        True
       build-depends:
-                        base >= 4 && < 5,
+                        base >= 4.2 && < 5,
                         containers,
                         HTTP,
                         json,
