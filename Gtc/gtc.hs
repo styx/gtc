@@ -26,7 +26,7 @@ usage =
 
 langs_list :: IO()
 langs_list = putStrLn $ "\nList of available languages:\n\n" ++
-             (concat $ zipWith (\l d -> "    " ++ l ++ " - " ++ d ++ "\n") langs langs_descrs)
+             concat (zipWith (\l d -> "    " ++ l ++ " - " ++ d ++ "\n") langs langs_descrs)
 
 main :: IO()
 main =
@@ -47,7 +47,7 @@ main =
         -- Old variant with 'single line' processing
         -- from:to:rest -> do_trans from to (intercalate " " rest) >>= putStrLn
 
-        from:to:rest -> mapM_ (>>= putStrLn) (map (do_trans from to) rest)
+        from:to:rest -> mapM_ ((>>= putStrLn) . do_trans from to) rest
         _            -> usage
 
     exitWith ExitSuccess
@@ -61,7 +61,6 @@ main =
 -- 5) Remove some redunt carriage returns to make results looks prettie
 interactiveLoop :: [String] -> IO()
 interactiveLoop params =
-  do
     case params of
         from:to:_ -> interactiveLoop' from to
         _         -> usage
@@ -78,8 +77,7 @@ interactiveLoop' from to =
 
 getLine' :: IO(Maybe String)
 getLine' =
-  do
-    (liftM Just getLine ) `catch` eofHandler where
-    eofHandler e = if isEOFError e
-                   then return Nothing
-                   else ioError e
+    liftM Just getLine `catch` eofHandler
+    where eofHandler e = if isEOFError e
+            then return Nothing
+            else ioError e
