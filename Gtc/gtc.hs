@@ -5,8 +5,9 @@ module Main (
 
 import Gt.Core
 import Gt.Langs
-import Control.Monad
-import System.IO.Error
+import Control.Monad.Trans
+import System.Console.Haskeline hiding (catch)
+import System.Environment
 import System.Exit
 import qualified System.Environment.UTF8 as U
 
@@ -53,31 +54,35 @@ main =
     exitWith ExitSuccess
 
 -- Interactive mode processor
--- TODO:
--- 1) It shoud be possible to memoize: interactiveLoop' from to
--- 2) Need to remove explicit recursion
--- 3) Need to skip blank lines (including lines consist of white spaces only)
--- 4) Split results with '-------------------' ???
--- 5) Remove some redunt carriage returns to make results looks prettie
 interactiveLoop :: [String] -> IO()
 interactiveLoop params =
     case params of
         from:to:_ -> interactiveLoop' from to
         _         -> usage
 
+haskelineSettings :: String -> Settings IO
+haskelineSettings homedir = Settings {
+           complete = noCompletion,
+           historyFile = Just $ homedir ++ ".gtc_history",
+           autoAddHistory = True
+           }
+
+getHomeDir :: IO FilePath
+getHomeDir = catch (getEnv "HOME") (\_ -> return "")
+
 interactiveLoop' :: Lang -> Lang -> IO()
 interactiveLoop' from to =
   do
-    maybeLine <- getLine'
-    case maybeLine of
-        Nothing   -> return ()
-        Just line -> do
-                       do_trans from to line >>= putStrLn
-                       interactiveLoop' from to
-
-getLine' :: IO(Maybe String)
-getLine' =
-    liftM Just getLine `catch` eofHandler
-    where eofHandler e = if isEOFError e
-            then return Nothing
-            else ioError e
+    h <- getHomeDir
+    runInputT (haskelineSettings h) loop
+        where
+            loop :: InputT IO()
+            loop = do
+                minput <- getInputLine "> "
+                case minput of
+                    Nothing -> return ()
+                    Just "" -> loop
+                    Just input -> do
+                                     t <- lift $ do_trans from to input
+                                     outputStrLn t
+                                     loop
