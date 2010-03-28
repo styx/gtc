@@ -63,7 +63,7 @@ interactiveLoop params =
 haskelineSettings :: String -> Settings IO
 haskelineSettings homedir = Settings {
            complete = noCompletion,
-           historyFile = Just $ homedir ++ ".gtc_history",
+           historyFile = Just $ homedir ++ "/.gtc_history",
            autoAddHistory = True
            }
 
