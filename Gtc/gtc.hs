@@ -9,6 +9,7 @@ import Control.Monad.Trans
 import System.Console.Haskeline hiding (catch)
 import System.Environment
 import System.Exit
+import System.Posix.Terminal
 import qualified System.Environment.UTF8 as U
 
 usage :: IO()
@@ -71,16 +72,26 @@ haskelineSettings homedir = Settings {
 getHomeDir :: IO FilePath
 getHomeDir = catch (getEnv "HOME") (\_ -> return "")
 
+
 interactiveLoop' :: Lang -> Lang -> IO()
 interactiveLoop' from to =
     getHomeDir >>= (\h -> runInputT (haskelineSettings h) loop)
     where
+        promptLine :: IO String
+        promptLine =
+          do
+            tty_type <- queryTerminal 0
+            if tty_type
+                then return "> "
+                else return ""
+
         loop :: InputT IO()
         loop = do
-            minput <- getInputLine "> "
+            minput <- lift promptLine >>= getInputLine
             case minput of
                 Nothing -> return ()
                 Just "" -> loop
                 Just input -> do t <- lift $ do_trans from to input
+                                 outputStrLn $ replicate 80 '-'
                                  outputStrLn t
                                  loop
