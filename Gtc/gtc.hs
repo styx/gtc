@@ -48,6 +48,7 @@ main =
         -- Old variant with 'single line' processing
         -- from:to:rest -> do_trans from to (intercalate " " rest) >>= putStrLn
 
+        from:to:[]   -> interactiveLoop' from to
         from:to:rest -> mapM_ ((>>= putStrLn) . do_trans from to) rest
         _            -> usage
 
@@ -72,17 +73,14 @@ getHomeDir = catch (getEnv "HOME") (\_ -> return "")
 
 interactiveLoop' :: Lang -> Lang -> IO()
 interactiveLoop' from to =
-  do
-    h <- getHomeDir
-    runInputT (haskelineSettings h) loop
-        where
-            loop :: InputT IO()
-            loop = do
-                minput <- getInputLine "> "
-                case minput of
-                    Nothing -> return ()
-                    Just "" -> loop
-                    Just input -> do
-                                     t <- lift $ do_trans from to input
-                                     outputStrLn t
-                                     loop
+    getHomeDir >>= (\h -> runInputT (haskelineSettings h) loop)
+    where
+        loop :: InputT IO()
+        loop = do
+            minput <- getInputLine "> "
+            case minput of
+                Nothing -> return ()
+                Just "" -> loop
+                Just input -> do t <- lift $ do_trans from to input
+                                 outputStrLn t
+                                 loop
