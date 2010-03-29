@@ -45,10 +45,6 @@ main =
         ["--list"]           -> langs_list
         ["--help"]           -> usage
 
-
-        -- Old variant with 'single line' processing
-        -- from:to:rest -> do_trans from to (intercalate " " rest) >>= putStrLn
-
         from:to:[]   -> interactiveLoop' from to
         from:to:rest -> mapM_ ((>>= putStrLn) . do_trans from to) rest
         _            -> usage
@@ -71,7 +67,6 @@ haskelineSettings homedir = Settings {
 
 getHomeDir :: IO FilePath
 getHomeDir = catch (getEnv "HOME") (\_ -> return "")
-
 
 interactiveLoop' :: Lang -> Lang -> IO()
 interactiveLoop' from to =
