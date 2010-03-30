@@ -84,9 +84,26 @@ interactiveLoop' from to =
         loop = do
             minput <- lift promptLine >>= getInputLine
             case minput of
-                Nothing -> return ()
-                Just "" -> loop
-                Just input -> do t <- lift $ do_trans from to input
-                                 outputStrLn $ replicate 80 '-'
-                                 outputStrLn t
-                                 loop
+                Nothing                -> return ()
+                Just ""                -> loop
+                -- reverse langs
+                Just ('!':input)       -> translate to from input
+                -- set new langs pair
+                Just (':':input)       -> liftIO $ uncurry interactiveLoop' $ parse_cmd input
+                -- normal mode
+                Just input             -> translate from to input
+            where
+                parse_cmd :: String -> (Lang, Lang)
+                parse_cmd input =
+                    case wi of
+                        nl1:nl2:[] -> (nl1, nl2)
+                        _          -> (from, to)
+                    where
+                        wi = words input
+
+                translate :: String -> String -> String -> InputT IO()
+                translate l1 l2 i =
+                    do t <- lift $ do_trans l1 l2 i
+                       outputStrLn $ replicate 80 '-'
+                       outputStrLn t
+                       loop
