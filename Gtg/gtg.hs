@@ -4,7 +4,6 @@ module Main (
 ) where
 
 import Gt.Core
-import Gt.Helpers (decodeString)
 import Gt.Langs
 import Graphics.UI.Gtk
 import Graphics.UI.Gtk.Glade
