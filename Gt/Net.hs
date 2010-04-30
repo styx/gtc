@@ -24,4 +24,4 @@ get_resp sl tl str =
      return $ decodeString result
 
 get_resp_each_word :: Lang -> Lang -> String -> IO String
-get_resp_each_word = undefined
+get_resp_each_word = error "Gt.Net.get_resp_each_word: undefined"

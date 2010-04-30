@@ -39,7 +39,7 @@ shift_lines n = unlines . map (replicate (n*4) ' ' ++) . lines
 -- JSON deconstruct helpers
 from_ok :: Result a -> a
 from_ok (Ok x)    = x
-from_ok (Error _) = undefined
+from_ok (Error e) = error $ "Gt.Helpers.from_ok: " ++ show e
 
 jarr_to_list :: JSValue -> [JSValue]
 jarr_to_list (JSArray jarr) = jarr
@@ -51,4 +51,4 @@ jstr_to_str _               = ""
 
 jlist_to_slist :: JSValue -> [String]
 jlist_to_slist (JSArray xs) = map jstr_to_str xs
-jlist_to_slist _            = undefined
+jlist_to_slist _            = error "Gt.Helpers.jlist_to_slist: not a JSArray"

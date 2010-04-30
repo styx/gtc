@@ -19,7 +19,7 @@ do_trans sl tl str =
     return $ show $ jresp_to_resp jresp
 
 do_trans_each_word :: IO String
-do_trans_each_word = undefined
+do_trans_each_word = error "Gt.Core.do_trans_each_word: unimplemented"
 
 jresp_to_resp :: String -> Resp
 jresp_to_resp jobj = foldr fill_resp br obj_list
@@ -37,7 +37,7 @@ fill_resp (vclass, jval) resp =
 -- Sentences processing
 jval_to_sentences :: JSValue -> Sentences
 jval_to_sentences (JSArray jval) = Sentences { sent_list = foldr jsso_to_sentence [] jval }
-jval_to_sentences _              = undefined
+jval_to_sentences _              = error "Gt.Core.jval_to_sentences: not a JSArray"
 
 jsso_to_sentence :: JSValue -> [Sentence] -> [Sentence]
 jsso_to_sentence (JSObject jobj) acc =
@@ -46,7 +46,7 @@ jsso_to_sentence (JSObject jobj) acc =
     -- so just leaving as is
     foldr tot (Sentence "" "" "") in_list:acc
     where in_list = fromJSObject jobj
-jsso_to_sentence _ _ = undefined
+jsso_to_sentence _ _ = error "Gt.Core.jsso_to_sentence: not a JSObject"
 
 -- Conversion of inner list with trans-orig-translit data
 tot :: (String, JSValue) -> Sentence -> Sentence
@@ -60,7 +60,7 @@ tot (tclass, jval) s =
 -- Dictionaries processing
 jval_to_dicts :: JSValue -> Dicts
 jval_to_dicts (JSArray jval) = Dicts { dict_list = foldr jsdo_to_dict [] jval }
-jval_to_dicts _ = undefined
+jval_to_dicts _ = error "Gt.Core.jval_to_dicts: not a JSArray"
 
 jsdo_to_dict :: JSValue -> [Dict] -> [Dict]
 jsdo_to_dict (JSObject jobj) acc =
@@ -69,7 +69,7 @@ jsdo_to_dict (JSObject jobj) acc =
     -- so just leaving as is
     foldr pt (Dict "" []) in_list:acc
     where in_list = fromJSObject jobj
-jsdo_to_dict _ _ = undefined
+jsdo_to_dict _ _ = error "Gt.Core.jsdo_to_dict: not a JSObject"
 
 -- Conversion of inner list with pos-term data
 pt :: (String, JSValue) -> Dict -> Dict
