@@ -8,9 +8,20 @@ import Gt.Langs
 import Graphics.UI.Gtk
 import Graphics.UI.Gtk.Glade
 import Paths_gt_tools(getDataDir)
+import Data.List (elemIndex)
+import qualified System.Environment.UTF8 as U
+
+comboIndex :: [String] -> String -> Int
+comboIndex xs x = maybe (-1) (id) (x `elemIndex` xs)
 
 main :: IO()
 main = do
+    -- Parse command line 
+    args <- U.getArgs
+    let fromL = if (length args) >= 1 then comboIndex langs (args !! 0) else -1
+    let toL   = if (length args) >= 2 then comboIndex (tail langs) (args !! 1) else -1
+
+    -- GUI initialization
     _ <- initGUI
     data_dir  <- getDataDir
     Just xml  <- xmlNew $ data_dir ++ "/Gtg/main.glade"
@@ -29,6 +40,10 @@ main = do
 
     mapM_ (comboBoxAppendText cmb_dest_lang  ) (tail langs_descrs)
     mapM_ (comboBoxAppendText cmb_source_lang) langs_descrs
+
+    -- Set active lang from command line
+    comboBoxSetActive cmb_source_lang fromL
+    comboBoxSetActive cmb_dest_lang toL
 
     -- Actions
     _ <- onClicked       btn_close      (widgetDestroy window)
