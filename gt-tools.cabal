@@ -15,7 +15,7 @@ description:            This package consist from console backend, GUI backend a
                         between different languages.
 category:               Tools
 author:                 Mikhail S. Pobolovets
-stability:              experimental
+stability:              stable
 tested-with:            GHC==6.12.1
 data-files:             LICENSE README Gtg/main.glade
 data-dir:               ""
