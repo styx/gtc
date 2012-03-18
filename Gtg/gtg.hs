@@ -1,4 +1,4 @@
-
+{-# LANGUAGE CPP #-}
 module Main (
     main
 ) where
@@ -16,8 +16,13 @@ comboIndex xs x = maybe (-1) (id) (x `elemIndex` xs)
 
 main :: IO()
 main = do
-    -- Parse command line 
+#if MIN_VERSION_base(4,4,0)
+    -- returns proper String
+    args <- getArgs
+#else
+    -- TODO: Need to detecet terminal encoding and make convertion
     args <- U.getArgs
+#endif
     let fromL = if (length args) >= 1 then comboIndex langs (args !! 0) else -1
     let toL   = if (length args) >= 2 then comboIndex (tail langs) (args !! 1) else -1
 

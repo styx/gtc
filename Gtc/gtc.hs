@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 
 module Main (
     main
@@ -33,8 +34,13 @@ langs_list = putStrLn $ "\nList of available languages:\n\n" ++
 main :: IO()
 main =
   do
-    -- TODO: Need to detecet terminal encoding and make convertions
+#if MIN_VERSION_base(4,4,0)
+    -- returns proper String
+    args <- getArgs
+#else
+    -- TODO: Need to detecet terminal encoding and make convertion
     args <- U.getArgs
+#endif
     case args of
 
         "-i":rest -> interactiveLoop rest
