@@ -9,6 +9,7 @@ import Graphics.UI.Gtk
 import Graphics.UI.Gtk.Glade
 import Paths_gt_tools(getDataDir)
 import Data.List (elemIndex)
+import System.Environment.UTF8
 import qualified System.Environment.UTF8 as U
 
 comboIndex :: [String] -> String -> Int
