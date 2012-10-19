@@ -34,6 +34,7 @@ executable              gtc
     build-depends:
                         base >= 4.2 && < 5,
                         containers,
+                        extensible-exceptions,
                         haskeline,
                         HTTP,
                         json,

@@ -7,11 +7,12 @@ module Main (
 import Gt.Core
 import Gt.Langs
 import Control.Monad.Trans
-import System.Console.Haskeline hiding (catch)
+import System.Console.Haskeline
 import System.Environment
 import System.Exit
 import System.Posix.Terminal
 import qualified System.Environment.UTF8 as U
+import qualified Control.Exception.Extensible as E
 
 usage :: IO()
 usage =
@@ -72,7 +73,7 @@ haskelineSettings homedir = Settings {
            }
 
 getHomeDir :: IO FilePath
-getHomeDir = catch (getEnv "HOME") (\_ -> return "")
+getHomeDir =  getEnv "HOME" `E.catch` (const $ return "" :: E.SomeException -> IO String)
 
 interactiveLoop' :: Lang -> Lang -> IO()
 interactiveLoop' from to =
