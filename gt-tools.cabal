@@ -1,5 +1,5 @@
 name:                   gt-tools
-version:                0.1.4.3
+version:                0.1.4.4
 cabal-version:          >= 1.8
 build-type:             Simple
 license:                GPL
@@ -16,7 +16,7 @@ description:            This package consist from console backend, GUI backend a
 category:               Tools
 author:                 Mikhail S. Pobolovets
 stability:              stable
-tested-with:            GHC==6.12.1
+tested-with:            GHC==6.12.1, GHC==7.6.1
 data-files:             LICENSE README Gtg/main.glade
 data-dir:               ""
 extra-source-files:     Setup.lhs
