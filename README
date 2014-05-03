@@ -3,15 +3,17 @@ GTC - Google Translate Console
 This program translates a single word or a sentence through http://translate.google.com.
 
 To use program you need to specify fromLang, toLang and text for translation.
-Lang is 2 sumbols code, i.e. en, ru, be.
+Lang is 2 symbol code, i.e. 'en', 'ru', 'be'.
 
 How to install:
     1) cabal install
 
 Usage example:
-    1) gtc en ru test
-    2) gtc en ru This is test
+    $ gtc en ru test
+    $ gtc en ru This is test
+    $ gtc en ru
+    <interactive line-based mode>
 
 (You may want crete aliases in your .bashrc)
 
-For current time GTC supports only UTF-8 console.
+For ghc versions 7.2 and older 'gtc' tool supports only UTF-8 consoles.

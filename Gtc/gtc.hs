@@ -39,7 +39,7 @@ main =
     -- returns proper String
     args <- getArgs
 #else
-    -- TODO: Need to detecet terminal encoding and make convertion
+    -- TODO: Need to detecet terminal encoding and make convestion
     args <- U.getArgs
 #endif
     case args of
