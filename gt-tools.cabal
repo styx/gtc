@@ -1,5 +1,5 @@
 name:                   gt-tools
-version:                0.2
+version:                0.2.1
 cabal-version:          >= 1.8
 build-type:             Simple
 license:                GPL
@@ -19,7 +19,7 @@ stability:              stable
 tested-with:            GHC==7.6.1
 data-files:             LICENSE README Gtg/main.glade
 data-dir:               ""
-extra-source-files:     Setup.lhs
+extra-source-files:     Setup.hs
 
 flag gui
     description:        Use this flag if you wish to build GUI version
