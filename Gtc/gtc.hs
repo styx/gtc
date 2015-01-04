@@ -11,7 +11,6 @@ import System.Console.Haskeline
 import System.Environment
 import System.Exit
 import System.Posix.Terminal
-import qualified System.Environment.UTF8 as U
 import qualified Control.Exception.Extensible as E
 
 usage :: IO()
@@ -35,13 +34,7 @@ langs_list = putStrLn $ "\nList of available languages:\n\n" ++
 main :: IO()
 main =
   do
-#if MIN_VERSION_base(4,4,0)
-    -- returns proper String
     args <- getArgs
-#else
-    -- TODO: Need to detecet terminal encoding and make convestion
-    args <- U.getArgs
-#endif
     case args of
 
         "-i":rest -> interactiveLoop rest

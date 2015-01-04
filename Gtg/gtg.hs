@@ -9,21 +9,15 @@ import Graphics.UI.Gtk
 import Graphics.UI.Gtk.Glade
 import Paths_gt_tools(getDataDir)
 import Data.List (elemIndex)
-import System.Environment.UTF8
-import qualified System.Environment.UTF8 as U
+import qualified Data.Text as T
+import qualified System.Environment as E
 
 comboIndex :: [String] -> String -> Int
 comboIndex xs x = maybe (-1) (id) (x `elemIndex` xs)
 
 main :: IO()
 main = do
-#if MIN_VERSION_base(4,4,0)
-    -- returns proper String
-    args <- getArgs
-#else
-    -- TODO: Need to detecet terminal encoding and make convertion
-    args <- U.getArgs
-#endif
+    args <- E.getArgs
     let fromL = if (length args) >= 1 then comboIndex langs (args !! 0) else -1
     let toL   = if (length args) >= 2 then comboIndex (tail langs) (args !! 1) else -1
 
@@ -44,8 +38,10 @@ main = do
     _ <- comboBoxSetModelText cmb_dest_lang
     _ <- comboBoxSetModelText cmb_source_lang
 
-    mapM_ (comboBoxAppendText cmb_dest_lang  ) (tail langs_descrs)
-    mapM_ (comboBoxAppendText cmb_source_lang) langs_descrs
+    let text_langs_descrs = map T.pack langs_descrs
+
+    mapM_ (comboBoxAppendText cmb_dest_lang  ) (tail text_langs_descrs)
+    mapM_ (comboBoxAppendText cmb_source_lang) text_langs_descrs
 
     -- Set active lang from command line
     comboBoxSetActive cmb_source_lang fromL

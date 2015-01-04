@@ -16,7 +16,7 @@ description:            This package consist from console backend, GUI backend a
 category:               Tools
 author:                 Mikhail S. Pobolovets
 stability:              stable
-tested-with:            GHC==6.12.1, GHC==7.6.1
+tested-with:            GHC==7.6.1
 data-files:             LICENSE README Gtg/main.glade
 data-dir:               ""
 extra-source-files:     Setup.lhs
@@ -32,7 +32,7 @@ executable              gtc
     hs-source-dirs:     ., Gtc
     other-modules:      Gt.Core, Gt.Helpers, Gt.Langs, Gt.Net, Gt.Translation
     build-depends:
-                        base >= 4.2 && < 5,
+                        base >= 4.4 && < 5,
                         containers,
                         extensible-exceptions,
                         haskeline,
@@ -56,9 +56,10 @@ executable              gtg
                         containers,
                         HTTP,
                         json,
-                        url,
-                        gtk,
                         glade,
+                        gtk >= 0.13,
+                        text,
+                        url,
                         utf8-string >= 0.3.6
     else
       buildable:        False
