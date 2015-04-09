@@ -22,8 +22,8 @@ do_trans_each_word :: IO String
 do_trans_each_word = error "Gt.Core.do_trans_each_word: unimplemented"
 
 jresp_to_resp :: String -> Resp
-jresp_to_resp jobj = foldr fill_resp br obj_list
-    where obj_list = fromJSObject $ from_ok (decode jobj :: Result (JSObject JSValue))
+jresp_to_resp unparsed_json = foldr fill_resp br obj_list
+    where obj_list = fromJSObject $ from_ok unparsed_json (decode unparsed_json :: Result (JSObject JSValue))
           br = blank_resp
 
 fill_resp :: (String, JSValue) -> Resp -> Resp

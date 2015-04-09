@@ -37,10 +37,13 @@ shift_lines n = unlines . map (replicate (n*4) ' ' ++) . lines
 
 
 -- JSON deconstruct helpers
-from_ok :: Result a -> a
-from_ok (Ok x)    = x
-from_ok (Error e) = error $ "Gt.Helpers.from_ok: " ++ show e
-
+from_ok :: String -> Result a -> a
+from_ok _raw_data (Ok x)    = x
+from_ok raw_data (Error e) = error $ unlines [ "Gt.Helpers.from_ok:"
+                                             , show e
+                                             , "on input:"
+                                             , show raw_data
+                                             ]
 jarr_to_list :: JSValue -> [JSValue]
 jarr_to_list (JSArray jarr) = jarr
 jarr_to_list _              = []
